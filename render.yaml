@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: dnd-campaign
+    runtime: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: dnd-campaign-db
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: BUNDLE_WITHOUT
+        value: development:test
+
+databases:
+  - name: dnd-campaign-db
+    databaseName: dnd_campaign
+    user: dnd_campaign

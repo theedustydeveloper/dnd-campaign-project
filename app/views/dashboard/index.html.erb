@@ -1,0 +1,95 @@
+<div class="max-w-7xl mx-auto">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+    <p class="text-gray-600 mt-2">Welcome back, <%= current_user.username %>!</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <!-- Total Campaigns -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center">
+        <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+          <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+          </svg>
+        </div>
+        <div class="ml-5 w-0 flex-1">
+          <dl>
+            <dt class="text-sm font-medium text-gray-500 truncate">Total Campaigns</dt>
+            <dd class="text-2xl font-semibold text-gray-900"><%= @campaigns_count %></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Users -->
+    <% if current_user.admin? %>
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
+            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+          </div>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Total Users</dt>
+              <dd class="text-2xl font-semibold text-gray-900"><%= @users_count %></dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Pending Requests -->
+    <% if current_user.game_master? %>
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0 bg-yellow-500 rounded-md p-3">
+            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+            </svg>
+          </div>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Pending Requests</dt>
+              <dd class="text-2xl font-semibold text-gray-900"><%= @pending_requests_count %></dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="bg-white rounded-lg shadow">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-xl font-semibold text-gray-900">Quick Links</h2>
+    </div>
+    <div class="p-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <% if current_user.admin? %>
+          <%= link_to users_path, class: "block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition" do %>
+            <h3 class="font-semibold text-gray-900">Manage Users</h3>
+            <p class="text-sm text-gray-600 mt-1">View and manage all users in the system</p>
+          <% end %>
+        <% end %>
+
+        <% if current_user.game_master? || current_user.admin? %>
+          <%= link_to campaigns_path, class: "block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition" do %>
+            <h3 class="font-semibold text-gray-900">My Campaigns</h3>
+            <p class="text-sm text-gray-600 mt-1">View and manage your campaigns</p>
+          <% end %>
+        <% end %>
+
+        <% if current_user.player? %>
+          <%= link_to campaigns_path, class: "block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition" do %>
+            <h3 class="font-semibold text-gray-900">Browse Campaigns</h3>
+            <p class="text-sm text-gray-600 mt-1">Explore available campaigns to join</p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="max-w-7xl mx-auto">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Users</h1>
+    <p class="text-gray-600 mt-2">Manage all users in the system</p>
+  </div>
+
+  <div class="bg-white rounded-lg shadow">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-xl font-semibold text-gray-900">All Users</h2>
+    </div>
+    <div class="p-6">
+      <div
+        id="users-table"
+        data-controller="tabulator"
+        data-tabulator-url-value="<%= table_data_users_path %>"
+        data-tabulator-columns-value='[
+          {"title": "ID", "field": "id", "width": 80, "sorter": "number"},
+          {"title": "Username", "field": "username", "sorter": "string"},
+          {"title": "Email", "field": "email", "sorter": "string"},
+          {"title": "Role", "field": "role", "sorter": "string"},
+          {"title": "Created At", "field": "created_at", "formatter": "customDate"}
+        ]'
+        data-tabulator-options-value='{
+          "height": "500px",
+          "layout": "fitColumns",
+          "placeholder": "No users found"
+        }'>
+      </div>
+    </div>
+  </div>
+</div>
